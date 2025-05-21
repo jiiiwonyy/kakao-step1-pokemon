@@ -3,7 +3,11 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import pokeballImage from "../../public/pokeball.png";
 
-const Dashboard = ({ myPokemons }) => {
+const Dashboard = ({ myPokemons, setMyPokemons }) => {
+  const handleRemove = (id) => {
+    setMyPokemons((prev) => prev.filter((p) => p.id !== id));
+  };
+
   const slots = Array(6)
     .fill(null)
     .map((_, idx) => myPokemons[idx] || null);
@@ -14,7 +18,12 @@ const Dashboard = ({ myPokemons }) => {
       <MyPokemonWrapper>
         {slots.map((pokemon, idx) =>
           pokemon ? (
-            <PokemonCard key={pokemon.id} pokemon={pokemon} isAdded />
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              isAdded
+              onRemove={handleRemove}
+            />
           ) : (
             <Pokeball key={`empty-${idx}`}>
               <PokeballImage src={pokeballImage} alt="빈 슬롯" />

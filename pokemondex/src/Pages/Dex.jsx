@@ -17,7 +17,7 @@ const Dex = () => {
 
   return (
     <Container>
-      <Dashboard myPokemons={myPokemons} />
+      <Dashboard myPokemons={myPokemons} setMyPokemons={setMyPokemons} />
       <PokemonList pokemons={MOCK_DATA} onAdd={handleAddPokemon} />
     </Container>
   );
@@ -32,10 +32,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
 `;

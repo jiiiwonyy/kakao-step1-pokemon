@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const PokemonCard = ({ pokemon, onAdd, isAdded }) => {
+const PokemonCard = ({ pokemon, onAdd, isAdded, onRemove }) => {
   return (
     <PokemonCardContainer>
       <PokemonCardImage src={pokemon.img_url} alt={pokemon.korean_name} />
       <PokemonCardName>{pokemon.korean_name}</PokemonCardName>
       <PokemonCardNumber>No. {pokemon.id}</PokemonCardNumber>
-      {!isAdded && (
+      {isAdded ? (
+        <RemoveButton onClick={() => onRemove?.(pokemon.id)}>삭제</RemoveButton>
+      ) : (
         <PokemonCardAddButton onClick={() => onAdd?.(pokemon)}>
           추가
         </PokemonCardAddButton>
@@ -67,5 +69,20 @@ const PokemonCardAddButton = styled.button`
 
   &:hover {
     background-color: #e60000;
+  }
+`;
+
+const RemoveButton = styled.button`
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #ff0000;
   }
 `;
