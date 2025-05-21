@@ -9,10 +9,14 @@ const Dex = () => {
   const [myPokemons, setMyPokemons] = useState([]);
 
   const handleAddPokemon = (pokemon) => {
-    if (myPokemons.length >= 6) return; // 최대 6개 제한
-    // 이미 추가된 포켓몬인지 확인
-    const alreadyExists = myPokemons.some((p) => p.id === pokemon.id);
-    if (!alreadyExists) setMyPokemons([...myPokemons, pokemon]);
+    if (myPokemons.length >= 6) {
+      alert("최대 6마리까지 선택택할 수 있어요!");
+      return;
+    }
+
+    if (!myPokemons.find((p) => p.id === pokemon.id)) {
+      setMyPokemons([...myPokemons, pokemon]);
+    }
   };
 
   return (
