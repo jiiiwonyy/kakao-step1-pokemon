@@ -17,6 +17,13 @@ const Dex = () => {
     if (!myPokemons.find((p) => p.id === pokemon.id)) {
       setMyPokemons([...myPokemons, pokemon]);
     }
+
+    const isExist = myPokemons.some((p) => p.id === pokemon.id);
+
+    if (isExist) {
+      alert("이미 추가된 포켓몬입니다!");
+      return;
+    }
   };
 
   return (
