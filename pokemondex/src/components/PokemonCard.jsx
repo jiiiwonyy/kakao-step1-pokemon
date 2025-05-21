@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const PokemonCard = ({ pokemon }) => {
+const PokemonCard = ({ pokemon, onAdd, isAdded }) => {
   return (
     <PokemonCardContainer>
       <PokemonCardImage src={pokemon.img_url} alt={pokemon.korean_name} />
       <PokemonCardName>{pokemon.korean_name}</PokemonCardName>
       <PokemonCardNumber>No. {pokemon.id}</PokemonCardNumber>
-      <PokemonCardAddButton>추가</PokemonCardAddButton>
+      {!isAdded && (
+        <PokemonCardAddButton onClick={() => onAdd?.(pokemon)}>
+          추가
+        </PokemonCardAddButton>
+      )}
     </PokemonCardContainer>
   );
 };

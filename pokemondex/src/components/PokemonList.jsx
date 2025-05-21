@@ -3,11 +3,11 @@ import styled from "styled-components";
 import MOCK_DATA from "../../public/data/mock.js";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = () => {
+const PokemonList = ({ pokemons, onAdd }) => {
   return (
     <PokemonGrid>
-      {MOCK_DATA.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+      {pokemons.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} onAdd={onAdd} />
       ))}
     </PokemonGrid>
   );
@@ -22,6 +22,7 @@ const PokemonGrid = styled.div`
   padding: 20px;
   border-radius: 10px;
   background-color: #f0f0f0;
+  width: 100%;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(6, 1fr);
