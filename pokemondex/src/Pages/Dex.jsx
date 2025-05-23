@@ -37,10 +37,9 @@ const Dex = () => {
 export default Dex;
 
 const Container = styled.div`
-  max-width: 1200px;
-  padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;

@@ -64,6 +64,13 @@ const MyPokemonWrapper = styled.div`
   width: 100%;
   padding: 10px;
   gap: 30px;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+  }
 `;
 
 const Pokeball = styled.div`
