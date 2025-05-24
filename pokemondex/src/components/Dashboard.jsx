@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import pokeballImage from "../../public/pokeball.png";
+import { usePokemon } from "../context/PokemonContext.jsx";
 
-const Dashboard = ({ myPokemons, setMyPokemons }) => {
-  const handleRemove = (id) => {
-    setMyPokemons((prev) => prev.filter((p) => p.id !== id));
-  };
+const Dashboard = () => {
+  const { myPokemons, removePokemon } = usePokemon();
 
   const slots = Array(6)
     .fill(null)
@@ -21,12 +19,12 @@ const Dashboard = ({ myPokemons, setMyPokemons }) => {
             <PokemonCard
               key={pokemon.id}
               pokemon={pokemon}
-              isAdded
-              onRemove={handleRemove}
+              onRemove={() => removePokemon(pokemon.id)}
+              mode="mylist"
             />
           ) : (
             <Pokeball key={`empty-${idx}`}>
-              <PokeballImage src={pokeballImage} alt="빈 슬롯" />
+              <PokeballImage src="/pokeball.png" alt="빈 슬롯" />
             </Pokeball>
           )
         )}

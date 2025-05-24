@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import MOCK_DATA from "../../public/data/mock.js";
 import PokemonCard from "./PokemonCard";
+import { usePokemon } from "../context/PokemonContext.jsx";
 
-const PokemonList = ({ pokemons, onAdd }) => {
+const PokemonList = () => {
+  const { allPokemons } = usePokemon();
   return (
     <PokemonGrid>
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} onAdd={onAdd} />
+      {allPokemons.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} mode="alllist" />
       ))}
     </PokemonGrid>
   );

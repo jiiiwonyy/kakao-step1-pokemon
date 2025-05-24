@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import MOCK_DATA from "../../public/data/mock.js";
+import { usePokemon } from "../context/PokemonContext.jsx";
 
 const PokemonDetail = () => {
+  const { allPokemons } = usePokemon();
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("/dex");
   };
   const { id } = useParams();
-  const pokemon = MOCK_DATA.find((p) => p.id === parseInt(id));
+  const pokemon = allPokemons.find((p) => p.id === parseInt(id));
 
   if (!pokemon) return <div>포켓몬을 찾을 수 없습니다.</div>;
 

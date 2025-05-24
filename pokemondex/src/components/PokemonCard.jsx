@@ -1,11 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { usePokemon } from "../context/PokemonContext.jsx";
 
-const PokemonCard = ({ pokemon, onAdd, isAdded, onRemove }) => {
+const PokemonCard = ({ pokemon, mode }) => {
+  const { addPokemon, removePokemon } = usePokemon();
   const navigate = useNavigate();
+
   const handleCardClick = () => {
     navigate(`/pokemon/${pokemon.id}`);
+  };
+
+  const handleAddClick = (e) => {
+    e.stopPropagation();
+    addPokemon(pokemon);
+  };
+
+  const handleRemoveClick = (e) => {
+    e.stopPropagation();
+    removePokemon(pokemon.id);
   };
 
   return (
@@ -13,22 +26,11 @@ const PokemonCard = ({ pokemon, onAdd, isAdded, onRemove }) => {
       <PokemonCardImage src={pokemon.img_url} alt={pokemon.korean_name} />
       <PokemonCardName>{pokemon.korean_name}</PokemonCardName>
       <PokemonCardNumber>No. {pokemon.id}</PokemonCardNumber>
-      {isAdded ? (
-        <RemoveButton
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove?.(pokemon.id);
-          }}
-        >
-          삭제
-        </RemoveButton>
+
+      {mode == "mylist" ? (
+        <RemoveButton onClick={handleRemoveClick}>삭제</RemoveButton>
       ) : (
-        <PokemonCardAddButton
-          onClick={(e) => {
-            e.stopPropagation();
-            onAdd?.(pokemon);
-          }}
-        >
+        <PokemonCardAddButton onClick={handleAddClick}>
           추가
         </PokemonCardAddButton>
       )}
