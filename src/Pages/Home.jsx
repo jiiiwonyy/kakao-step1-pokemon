@@ -6,7 +6,7 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <PokemonLogo src="public/pokemon-logo.png" alt="pokemon logo" />
+      <PokemonLogo src="/pokemon-logo.png" alt="pokemon logo" />
       <StartButton onClick={() => navigate("/dex")}>
         포켓몬 도감 시작하기
       </StartButton>
@@ -31,7 +31,6 @@ const PokemonLogo = styled.img`
   max-width: 600px;
   margin: 0 auto;
   display: block;
-  padding: 20px;
   border-radius: 10px;
 `;
 
