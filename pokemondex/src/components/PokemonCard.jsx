@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { usePokemon } from "../context/PokemonContext.jsx";
+// import { usePokemon } from "../context/PokemonContext.jsx";
+// import { useDispatch } from "react-redux";
+// import { addPokemon, removePokemon } from "../redux/modules/pokemonSlices.js";
 
-const PokemonCard = ({ pokemon, mode }) => {
-  const { addPokemon, removePokemon } = usePokemon();
+const PokemonCard = ({ pokemon, onAdd, onRemove }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -13,12 +14,12 @@ const PokemonCard = ({ pokemon, mode }) => {
 
   const handleAddClick = (e) => {
     e.stopPropagation();
-    addPokemon(pokemon);
+    onAdd?.();
   };
 
   const handleRemoveClick = (e) => {
     e.stopPropagation();
-    removePokemon(pokemon.id);
+    onRemove?.();
   };
 
   return (
@@ -26,8 +27,7 @@ const PokemonCard = ({ pokemon, mode }) => {
       <PokemonCardImage src={pokemon.img_url} alt={pokemon.korean_name} />
       <PokemonCardName>{pokemon.korean_name}</PokemonCardName>
       <PokemonCardNumber>No. {pokemon.id}</PokemonCardNumber>
-
-      {mode == "mylist" ? (
+      {onRemove ? (
         <RemoveButton onClick={handleRemoveClick}>삭제</RemoveButton>
       ) : (
         <PokemonCardAddButton onClick={handleAddClick}>

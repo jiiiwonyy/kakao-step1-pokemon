@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import { usePokemon } from "../context/PokemonContext.jsx";
+// import { usePokemon } from "../context/PokemonContext.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { removePokemon } from "../redux/modules/pokemonSlices.js";
 
 const Dashboard = () => {
-  const { myPokemons, removePokemon } = usePokemon();
+  const dispatch = useDispatch();
+  const myPokemons = useSelector((state) => state.pokemon.myPokemons);
 
   const slots = Array(6)
     .fill(null)
@@ -19,8 +22,7 @@ const Dashboard = () => {
             <PokemonCard
               key={pokemon.id}
               pokemon={pokemon}
-              onRemove={() => removePokemon(pokemon.id)}
-              mode="mylist"
+              onRemove={() => dispatch(removePokemon(pokemon.id))}
             />
           ) : (
             <Pokeball key={`empty-${idx}`}>

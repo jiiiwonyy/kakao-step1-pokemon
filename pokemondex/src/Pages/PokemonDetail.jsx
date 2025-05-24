@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { usePokemon } from "../context/PokemonContext.jsx";
+import { useSelector } from "react-redux";
 
 const PokemonDetail = () => {
-  const { allPokemons } = usePokemon();
   const navigate = useNavigate();
+  const allPokemons = useSelector((state) => state.pokemon.allPokemons);
+
   const handleNavigate = () => {
     navigate("/dex");
   };
@@ -18,7 +19,7 @@ const PokemonDetail = () => {
     <PokemonDetailContainer>
       <PokemonDetailImage src={pokemon.img_url} alt={pokemon.korean_name} />
       <PokemonDetailName>{pokemon.korean_name}</PokemonDetailName>
-      <PokemonDetailType>타입: {pokemon.types}</PokemonDetailType>
+      <PokemonDetailType> 타입: {pokemon.types.join(", ")}</PokemonDetailType>
       <PokemonDetailDescription>{pokemon.description}</PokemonDetailDescription>
       <NavigateDexButton onClick={handleNavigate}>뒤로 가기</NavigateDexButton>
     </PokemonDetailContainer>

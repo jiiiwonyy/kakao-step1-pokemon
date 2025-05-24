@@ -46,38 +46,3 @@ export const PokemonProvider = ({ children }) => {
 
 // 커스텀 훅
 export const usePokemon = () => useContext(PokemonContext);
-
-// import { createContext, useContext, useState } from "react";
-
-// const PokemonContext = createContext();
-
-// export const PokemonProvider = ({ children }) => {
-//   const [myPokemons, setMyPokemons] = useState([]);
-
-//   const addPokemon = (pokemon) => {
-//     if (myPokemons.length >= 6) {
-//       alert("최대 6마리까지 선택할 수 있어요!");
-//       return;
-//     }
-
-//     const isExist = myPokemons.some((p) => p.id === pokemon.id);
-//     if (isExist) {
-//       alert("이미 추가된 포켓몬입니다!");
-//       return;
-//     }
-
-//     setMyPokemons((prev) => [...prev, pokemon]);
-//   };
-
-//   const removePokemon = (id) => {
-//     setMyPokemons((prev) => prev.filter((p) => p.id !== id));
-//   };
-
-//   return (
-//     <PokemonContext.Provider value={{ myPokemons, addPokemon, removePokemon }}>
-//       {children}
-//     </PokemonContext.Provider>
-//   );
-// };
-
-// export const usePokemon = () => useContext(PokemonContext);
