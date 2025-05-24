@@ -2,13 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 // import { usePokemon } from "../context/PokemonContext.jsx";
-import { useSelector, useDispatch } from "react-redux";
-import { removePokemon } from "../redux/modules/pokemonSlices.js";
+import { useSelector } from "react-redux";
+import usePokemonActions from "../hooks/usePokemonActions.js";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
   const myPokemons = useSelector((state) => state.pokemon.myPokemons);
-
+  const { tryRemovePokemon } = usePokemonActions();
   const slots = Array(6)
     .fill(null)
     .map((_, idx) => myPokemons[idx] || null);
@@ -22,7 +21,7 @@ const Dashboard = () => {
             <PokemonCard
               key={pokemon.id}
               pokemon={pokemon}
-              onRemove={() => dispatch(removePokemon(pokemon.id))}
+              onRemove={() => tryRemovePokemon(pokemon.id)}
             />
           ) : (
             <Pokeball key={`empty-${idx}`}>
