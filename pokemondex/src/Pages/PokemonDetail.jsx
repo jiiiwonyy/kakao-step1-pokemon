@@ -2,16 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import usePokemonActions from "../hooks/usePokemonActions";
 
 const PokemonDetail = () => {
   const navigate = useNavigate();
+  const { tryAddPokemon, tryRemovePokemon } = usePokemonActions();
   const allPokemons = useSelector((state) => state.pokemon.allPokemons);
+  const myPokemons = useSelector((state) => state.pokemon.myPokemons);
+  const { id } = useParams();
+  const pokemon = allPokemons.find((p) => p.id === parseInt(id));
+  const isExist = myPokemons.some((p) => p.id === pokemon.id);
 
   const handleNavigate = () => {
     navigate("/dex");
   };
-  const { id } = useParams();
-  const pokemon = allPokemons.find((p) => p.id === parseInt(id));
 
   if (!pokemon) return <div>포켓몬을 찾을 수 없습니다.</div>;
 
@@ -22,6 +26,15 @@ const PokemonDetail = () => {
       <PokemonDetailType> 타입: {pokemon.types.join(", ")}</PokemonDetailType>
       <PokemonDetailDescription>{pokemon.description}</PokemonDetailDescription>
       <NavigateDexButton onClick={handleNavigate}>뒤로 가기</NavigateDexButton>
+      {isExist ? (
+        <AddPokemonButton onClick={() => tryRemovePokemon(pokemon.id)}>
+          포켓몬 삭제
+        </AddPokemonButton>
+      ) : (
+        <AddPokemonButton onClick={() => tryAddPokemon(pokemon, myPokemons)}>
+          포켓몬 추가
+        </AddPokemonButton>
+      )}
     </PokemonDetailContainer>
   );
 };
@@ -68,4 +81,15 @@ const NavigateDexButton = styled.button`
   padding: 12px 16px;
   border-radius: 5px;
   margin-top: 20px;
+`;
+
+const AddPokemonButton = styled.button`
+  margin-top: 16px;
+  padding: 12px 26px;
+  font-size: 16px;
+  background-color: #ffcb05;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;
